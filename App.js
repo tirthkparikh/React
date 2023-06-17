@@ -1,4 +1,9 @@
+import React from "react";
+import  ReactDOM   from 'react-dom/client';
+
+
 // creating element and rendering by React
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Head = React.createElement(
