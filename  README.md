@@ -36,3 +36,30 @@ Also included some Theory questions in a file as wel
 -https and http both server is provided
 
 //https://parceljs.org/docs/ => for more parcel info
+
+
+#Swift bite
+/*
+We are starting with Food order app
+we draw wireframe first
+than we start deciding components
+
+1) Head component
+ -logo comp
+ -nav-items comp
+
+2)Body component
+ - search comp
+ -card comp
+
+3)Footer component
+ -copyright , links , adress etc
+
+*/
+
+
+#React-Hooks
+Normal js functions by facebook devlopers.
+they are inside react
+-useState()
+-useEffect()
