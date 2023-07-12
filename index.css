@@ -1,3 +1,82 @@
-.welcome{
-    color:red
+.welcome {
+  color: red;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #c6ffdd; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #f7797d,
+    #fbd786,
+    #c6ffdd
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #f7797d,
+    #fbd786,
+    #c6ffdd
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 2px solid #c6ffdd;
+}
+.logo > img {
+  width: 100px;
+  padding-left: 10px;
+}
+.nav-items {
+  padding: 0px 20px;
+}
+.nav-items > ul {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 20px;
+  color: rebeccapurple;
+}
+
+.nav-items > ul > li {
+  padding: 10px;
+  margin: 10px;
+}
+.res-card {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #f0f0f0;
+  border: 2px solid #fff;
+  padding: 5px;
+  align-self: auto;
+}
+
+.search {
+  padding: 10px;
+  margin: 2px;
+}
+.res-card > img {
+  width: 200px;
+  margin-right: 5px;
+}
+
+.res-card:hover {
+  border: 2px solid aqua;
+  cursor: pointer;
+}
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 5px;
+  position: relative;
+}
+.res-container > div {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.res-card > div {
+  width: 100%;
+  padding-top: 4px;
+  font-weight: 100;
 }

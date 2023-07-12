@@ -1,138 +1,1771 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import logo from "./Logo/logo.png";
 
-// creating element and rendering by React
+/*
+We are starting with Food order app
+we draw wireframe first
+than we start deciding components
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-const Head = React.createElement(
-  "h1",
+1) Head component
+ -logo comp
+ -nav-items comp
+
+2)Body component
+ - search comp
+ -card comp
+
+3)Footer component
+ -copyright , links , adress etc
+
+*/
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="logo">
+        <img src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png" />
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>
+            <img
+              src=" data:image/png;base64,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"
+              height="20px"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const ResCard = (props) => {
+  const { ResData } = props; // destrucring data
+  const {
+    cloudinaryImageId,
+    name,
+    cuisines,
+    avgRating,
+    slaString,
+    costForTwoString,
+  } = ResData?.data;
+  return (
+    <>
+      <div className="res-card">
+        <img
+          src={
+            `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/` +
+            cloudinaryImageId
+          }
+        />
+        <h3 className="Res-name">{name}</h3>
+        <div className="Res-cusine">{cuisines.join(", ")}</div>
+        <div className="Res-rating">{avgRating}</div>
+
+        <div className="Res-time">{slaString}</div>
+        <div className="Res-cost">{costForTwoString}</div>
+      </div>
+    </>
+  );
+};
+
+const datArray = [
   {
-    id: "one",
-    className: "welcome",
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "731438",
+      name: "Gajanand Pauva House",
+      uuid: "1e389abb-3e61-4a40-aec8-dacb135f5c51",
+      city: "10",
+      area: "Astodia",
+      totalRatingsString: "Too Few Ratings",
+      cloudinaryImageId: "d24bae7de4cce412e0abd3d0e75eea60",
+      cuisines: ["Snacks", "Indian", "Beverages", "Juices"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 35,
+      minDeliveryTime: 35,
+      maxDeliveryTime: 35,
+      slaString: "35 MINS",
+      lastMileTravel: 2.299999952316284,
+      slugs: {
+        restaurant: "gajanand-pauva-house-maninagar-maninagar-2",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "2146/3 PANCHBHAI'S KHADKI NR ASTODIA GATE,ASTODIA,AHMEDABAD, Ahmedabad Municipal Corporation, Ahmedabad, Gujarat-380001",
+      locality: "Maninagar",
+      parentId: 7615,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      ribbon: [
+        {
+          type: "PROMOTED",
+        },
+      ],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID:
+        "cid=7464467~p=1~eid=00000189-4936-7f78-04cb-daec000a0173~srvts=1689150455672",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "2.2 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "10% OFF",
+        subHeader: "UPTO ₹40",
+        discountTag: "",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "731438",
+        deliveryTime: 35,
+        minDeliveryTime: 35,
+        maxDeliveryTime: 35,
+        lastMileTravel: 2.299999952316284,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: true,
+      avgRating: "--",
+      totalRatings: 0,
+      new: true,
+    },
+    subtype: "basic",
   },
-  "Hello world from REACT!"
-);
-console.log(Head); //gives object
-
-// console of Head will give us object as it is react element
-// root.render(Head)
-
-// /How to create below struct in react ?
-{
-  /* <div>
-    <div>
-        <h1>xyz</h1>
-    </div>
-</div> */
-}
-
-// const parent = React.createElement(
-//     'div',
-//     {id:'parent'},
-//     React.createElement(
-//         'div',
-//         {id:'son'},
-//         React.createElement('h1',
-//         {id:'grandson'},
-//         "hi")
-//     )
-// )
-
-// /How to create below struct in react ?
-{
-  /* <div>
-    <div>
-        <h1>xyz</h1>
-        <h1>abc</h1>
-    </div>
-</div> */
-}
-
-//in place of last last create element we create array of two
-
-// const parent = React.createElement(
-//   "div",
-//   { id: "parent" },
-//   React.createElement("div", { id: "son" }, [
-//     React.createElement("h1", { id: "grandson" }, "hi"),
-//     React.createElement("h1", { id: "grandson2" }, "hi2"),
-//   ])
-// );
-
-// /How to create below struct in react ?
-{
-  /* <div>
-    <div>
-        <h1>xyz</h1>
-        <h1>abc</h1>
-    </div>
-     <div>
-        <h1>xyz</h1>
-        <h1>abc</h1>
-    </div>
-</div> */
-}
-
-const parent = React.createElement("div", { id: "parent" }, [
-  React.createElement("div", { id: "son" }, [
-    React.createElement("h1", { id: "grandson" }, "hi"),
-    React.createElement("h1", { id: "grandson2" }, "hi2"),
-  ]),
-  React.createElement("div", { id: "son2" }, [
-    React.createElement("h1", { id: "grandson3" }, "hi3"),
-    React.createElement("h1", { id: "grandson4" }, "hi4"),
-  ]),
-]);
-// root.render(parent); //render takes react object converts to html and then renders on root
-
-//JSX is like html and js but it is not html
-//JSX is not understand JS engine but babel is used by parcel to transpile it
-//not pure js so bable transpiles it to pure js
-
-const heading = <h1 className="welcome">this is JSX </h1>;
-
-//in JSX we provide atttribute in cammel case
-
-//We write JSX in () if it is in more than one line
-
-////////////////////////////////////////////
-
-//react component
-
-//class based component : old way
-
-// functional component : new way
-// Just a normal js function
-// we should name it with capital component
-
-//keeping component in another component is called component composition
-const HeadComponent = (props) => {
-  console.log(props.props);
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "55065",
+      name: "Hotel The Lotus Park",
+      uuid: "f184f9f9-4871-4278-ab53-aa666d03a556",
+      city: "10",
+      area: "Paldi",
+      totalRatingsString: "5000+ ratings",
+      cloudinaryImageId: "a54azjlhxwwhd44vyzzh",
+      cuisines: [
+        "North Indian",
+        "Chinese",
+        "Beverages",
+        "Biryani",
+        "Continental",
+        "Desserts",
+        "Snacks",
+        "Italian",
+        "Indian",
+        "Thalis",
+      ],
+      tags: [],
+      costForTwo: 25000,
+      costForTwoString: "₹250 FOR TWO",
+      deliveryTime: 30,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 30,
+      slaString: "30 MINS",
+      lastMileTravel: 0.800000011920929,
+      slugs: {
+        restaurant: "hotel-the-lotus-park-paldi-paldi-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Iscon Square, Opposite Kothawala Flat, Ellisbridge, Paldi, Ahmedabad",
+      locality: "Ellisbridge",
+      parentId: 103054,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "0.8 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "60% OFF",
+        subHeader: "UPTO ₹120",
+        discountTag: "",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "55065",
+        deliveryTime: 30,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 30,
+        lastMileTravel: 0.800000011920929,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 5000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "50180",
+      name: "McDonald's",
+      uuid: "146928e0-96ef-4331-a38c-05c93a93e4a5",
+      city: "10",
+      area: "Paldi",
+      totalRatingsString: "10000+ ratings",
+      cloudinaryImageId: "ee5f8e06b300efc07c9fe3f4df40dfc4",
+      cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
+      tags: [],
+      costForTwo: 40000,
+      costForTwoString: "₹400 FOR TWO",
+      deliveryTime: 34,
+      minDeliveryTime: 34,
+      maxDeliveryTime: 34,
+      slaString: "34 MINS",
+      lastMileTravel: 3,
+      slugs: {
+        restaurant: "mcdonalds-paldi-paldi-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Hardcastle Restaurants Pvt Ltd,McDonalds Family Restaurants Pvt Ltd,Yash Pinnacle Paldi, Ground floor, Shop No G 1, 2 F 1A ,Near Anjali Cross Roads, Village Mouje Paldi, Ahmedabad 380004",
+      locality: "YASH PINNACLE",
+      parentId: 630,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 3300,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 3300,
+        message: "",
+        title: "Delivery Charge",
+        amount: "3300",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "3 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "10% OFF",
+        subHeader: "ABOVE ₹999",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "50180",
+        deliveryTime: 34,
+        minDeliveryTime: 34,
+        maxDeliveryTime: 34,
+        lastMileTravel: 3,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.0",
+      totalRatings: 10000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "61232",
+      name: "Hocco Eatery",
+      uuid: "f474552b-626f-42c9-be2a-29f37690c4e4",
+      city: "10",
+      area: "Maninagar",
+      totalRatingsString: "5000+ ratings",
+      cloudinaryImageId: "figbkx1jiidmxibzfrsc",
+      cuisines: ["North Indian", "Pizzas"],
+      tags: [],
+      costForTwo: 35000,
+      costForTwoString: "₹350 FOR TWO",
+      deliveryTime: 35,
+      minDeliveryTime: 35,
+      maxDeliveryTime: 35,
+      slaString: "35 MINS",
+      lastMileTravel: 5,
+      slugs: {
+        restaurant: "havmor-eatery-krishna-baugh-maninagar-maninagar",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Shivalik Building,Nr, Krishnabaugh, Maninagar, Ahmedabad- 380008",
+      locality: "Maninagar",
+      parentId: 96292,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      ribbon: [
+        {
+          type: "PROMOTED",
+        },
+      ],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 4700,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 4700,
+        message: "",
+        title: "Delivery Charge",
+        amount: "4700",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID:
+        "cid=7473296~p=4~eid=00000189-4936-7f78-04cb-daed000a0444~srvts=1689150455672",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "5 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "₹125 OFF",
+        subHeader: "ABOVE ₹249",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "61232",
+        deliveryTime: 35,
+        minDeliveryTime: 35,
+        maxDeliveryTime: 35,
+        lastMileTravel: 5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: true,
+      avgRating: "4.4",
+      totalRatings: 5000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "409271",
+      name: "La Pino'z Pizza",
+      uuid: "795f19df-3925-4766-a540-56a2d695071e",
+      city: "10",
+      area: "Maninagar",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "fc1auem2fyuzifhiuzto",
+      cuisines: ["Pizzas", "Pastas", "Italian", "Desserts", "Beverages"],
+      tags: [],
+      costForTwo: 40000,
+      costForTwoString: "₹400 FOR TWO",
+      deliveryTime: 31,
+      minDeliveryTime: 31,
+      maxDeliveryTime: 31,
+      slaString: "31 MINS",
+      lastMileTravel: 5,
+      slugs: {
+        restaurant: "lapinoz-pizza-maninagar-maninagar",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "FF-12, Parth Empire, Opp. Maninagar Poice Station, Nr. Maninagar Fire Station, Maninagar, Ahmedabad 380 008",
+      locality: "Parth Empire",
+      parentId: 4961,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      ribbon: [
+        {
+          type: "PROMOTED",
+        },
+      ],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 4700,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 4700,
+        message: "",
+        title: "Delivery Charge",
+        amount: "4700",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID:
+        "cid=7213338~p=28~eid=00000189-4936-7f78-04cb-daf5000a1c3c~srvts=1689150455672",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "5 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "50% OFF",
+        subHeader: "UPTO ₹100",
+        discountTag: "",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "409271",
+        deliveryTime: 31,
+        minDeliveryTime: 31,
+        maxDeliveryTime: 31,
+        lastMileTravel: 5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: true,
+      avgRating: "4.1",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "42313",
+      name: "Udipi Cafe",
+      uuid: "2b8e23e2-30d5-4d10-bbc5-c16168594dac",
+      city: "10",
+      area: "Paldi",
+      totalRatingsString: "5000+ ratings",
+      cloudinaryImageId: "xbk2rexvcxaq28xvkh23",
+      cuisines: ["Punjabi", "Indian", "Chinese"],
+      tags: [],
+      costForTwo: 45000,
+      costForTwoString: "₹450 FOR TWO",
+      deliveryTime: 28,
+      minDeliveryTime: 28,
+      maxDeliveryTime: 28,
+      slaString: "28 MINS",
+      lastMileTravel: 1,
+      slugs: {
+        restaurant: "udipi-cafe-paldi-paldi-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address: "Paldi Cross Roads, Paldi, Ahmedabad",
+      locality: "Paldi Cross Roads",
+      parentId: 218938,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "1 kms",
+      hasSurge: false,
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "42313",
+        deliveryTime: 28,
+        minDeliveryTime: 28,
+        maxDeliveryTime: 28,
+        lastMileTravel: 1,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 5000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "391310",
+      name: "La Milano Pizzeria",
+      uuid: "e7e77fa9-f326-4ec6-b294-561c23dd7b64",
+      city: "10",
+      area: "Satellite",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "b8for8unewii8kr0lz8q",
+      cuisines: ["Pizzas"],
+      tags: [],
+      costForTwo: 20000,
+      costForTwoString: "₹200 FOR TWO",
+      deliveryTime: 38,
+      minDeliveryTime: 38,
+      maxDeliveryTime: 38,
+      slaString: "38 MINS",
+      lastMileTravel: 3.799999952316284,
+      slugs: {
+        restaurant: "lamilano-pizzeria-paldi-&-ambawadi-paldi-&-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Shop No. 5, Sun Avenue One, Manekbaug Shyamal Road Manekbaug Ahmedabad",
+      locality: "Satellite",
+      parentId: 22533,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      ribbon: [
+        {
+          type: "PROMOTED",
+        },
+      ],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 3300,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 3300,
+        message: "",
+        title: "Delivery Charge",
+        amount: "3300",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID:
+        "cid=7473453~p=13~eid=00000189-4936-7f78-04cb-daf0000a0d3a~srvts=1689150455672",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "3.7 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "20% OFF",
+        subHeader: "ABOVE ₹800",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "391310",
+        deliveryTime: 38,
+        minDeliveryTime: 38,
+        maxDeliveryTime: 38,
+        lastMileTravel: 3.799999952316284,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: true,
+      avgRating: "4.2",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "341232",
+      name: "London Yard Pizza",
+      uuid: "71c48106-0046-42f1-af06-6f44943b12dc",
+      city: "10",
+      area: "Paldi",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "ey1nykjsf5hlmxlpsub7",
+      cuisines: ["Pizzas", "Italian", "American", "Beverages", "Desserts"],
+      tags: [],
+      costForTwo: 50000,
+      costForTwoString: "₹500 FOR TWO",
+      deliveryTime: 32,
+      minDeliveryTime: 32,
+      maxDeliveryTime: 32,
+      slaString: "32 MINS",
+      lastMileTravel: 1.100000023841858,
+      slugs: {
+        restaurant: "london-yard-pizza-paldi-&-ambawadi-paldi-&-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "G-6, Ground Floor, Capstone Building, Netaji Road, Opposite Chirag Motors, Ellis Bridge, Ahmedabad",
+      locality: "Paldi",
+      parentId: 125980,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "1.1 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "₹150 OFF",
+        subHeader: "ABOVE ₹299",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "341232",
+        deliveryTime: 32,
+        minDeliveryTime: 32,
+        maxDeliveryTime: 32,
+        lastMileTravel: 1.100000023841858,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.7",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "59439",
+      name: "Vadilal Scoop Shop",
+      uuid: "6cdefb87-b797-485b-a4f7-3f4fe5f92ab9",
+      city: "10",
+      area: "Ellis Bridge",
+      totalRatingsString: "500+ ratings",
+      cloudinaryImageId: "93c97de8ffca9c513f0639d779db4dd0",
+      cuisines: ["Ice Cream", "Desserts"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 20,
+      minDeliveryTime: 20,
+      maxDeliveryTime: 20,
+      slaString: "20 MINS",
+      lastMileTravel: 0.20000000298023224,
+      slugs: {
+        restaurant: "vadilal-hangout-ellis-bridge-navrangpura",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Opposite VS Hospital, Near Pavan Travels, Ellis Bridge, Ahmedabad",
+      locality: "Ellis Bridge",
+      parentId: 11750,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "0.2 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "40% OFF",
+        subHeader: "UPTO ₹80",
+        discountTag: "",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "59439",
+        deliveryTime: 20,
+        minDeliveryTime: 20,
+        maxDeliveryTime: 20,
+        lastMileTravel: 0.20000000298023224,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.4",
+      totalRatings: 500,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "46717",
+      name: "Shree Annapurna- Maninagar",
+      uuid: "1f01072f-b3fa-4b51-944a-1ef64b78d97d",
+      city: "10",
+      area: "Maninagar",
+      totalRatingsString: "10000+ ratings",
+      cloudinaryImageId: "533320e125a1ca6c91464a0d4078bf0b",
+      cuisines: ["North Indian", "Punjabi", "Chinese", "Thalis", "Beverages"],
+      tags: [],
+      costForTwo: 40000,
+      costForTwoString: "₹400 FOR TWO",
+      deliveryTime: 27,
+      minDeliveryTime: 27,
+      maxDeliveryTime: 27,
+      slaString: "27 MINS",
+      lastMileTravel: 5,
+      slugs: {
+        restaurant: "shree-annapurna-maninagar-maninagar",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "A 2, Once More Apartment, Krishnabaug Cross Road, Mani Nagar, Ahmedabad",
+      locality: "Krishnabaug Cross Road",
+      parentId: 184159,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      ribbon: [
+        {
+          type: "PROMOTED",
+        },
+      ],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 4700,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 4700,
+        message: "",
+        title: "Delivery Charge",
+        amount: "4700",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID:
+        "cid=7393229~p=10~eid=00000189-4936-7f78-04cb-daef000a0a08~srvts=1689150455672",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "5 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "20% OFF",
+        subHeader: "",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "46717",
+        deliveryTime: 27,
+        minDeliveryTime: 27,
+        maxDeliveryTime: 27,
+        lastMileTravel: 5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: true,
+      avgRating: "4.2",
+      totalRatings: 10000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "359871",
+      name: "Al Baik Fast Food",
+      uuid: "f92856c5-6102-4a3b-9296-e418ed9a0e5c",
+      city: "10",
+      area: "Lal Darwaja",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "frnc9gss5pppow7lnze0",
+      cuisines: ["Arabian", "Grill", "Pizzas", "Seafood", "Tandoor"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 42,
+      minDeliveryTime: 42,
+      maxDeliveryTime: 42,
+      slaString: "42 MINS",
+      lastMileTravel: 1.5,
+      slugs: {
+        restaurant: "al-baik-fast-food-laldarwaja-laldarwaja",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "2441/ 1, Advance Cinema Road, Near Sarav Restaurant, Near Bijli Ghar, Lal Darwaja, Ahmedabad",
+      locality: "Bhadra Road",
+      parentId: 28934,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "1.5 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "₹100 OFF",
+        subHeader: "ABOVE ₹599",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "359871",
+        deliveryTime: 42,
+        minDeliveryTime: 42,
+        maxDeliveryTime: 42,
+        lastMileTravel: 1.5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "402111",
+      name: "Turkish Zaika",
+      uuid: "856960c5-17a0-40ed-b719-4de6b97e9d8f",
+      city: "10",
+      area: "Paldi & Ambawadi",
+      totalRatingsString: "20+ ratings",
+      cloudinaryImageId: "du8qdjg92lqmzqau2v8f",
+      cuisines: ["Desserts"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 32,
+      minDeliveryTime: 32,
+      maxDeliveryTime: 32,
+      slaString: "32 MINS",
+      lastMileTravel: 0.20000000298023224,
+      slugs: {
+        restaurant: "turkish-zaika-paldi-&-ambawadi-paldi-&-ambawadi",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "shop .No ;08 neel dhara complex opposite paavan travels next 2 UCO bank ellisbridge Ahmedabad  380006",
+      locality: "Opposite Paavan Travels",
+      parentId: 258442,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "0.2 kms",
+      hasSurge: false,
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "402111",
+        deliveryTime: 32,
+        minDeliveryTime: 32,
+        maxDeliveryTime: 32,
+        lastMileTravel: 0.20000000298023224,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.5",
+      totalRatings: 20,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "64772",
+      name: "Hotel Zk",
+      uuid: "4b8d49b4-0cde-4248-b990-8c67feeda164",
+      city: "10",
+      area: "Lal Darwaja",
+      totalRatingsString: "5000+ ratings",
+      cloudinaryImageId: "hj67lygi5a06bohlmrup",
+      cuisines: ["Indian", "Chinese"],
+      tags: [],
+      costForTwo: 50000,
+      costForTwoString: "₹500 FOR TWO",
+      deliveryTime: 36,
+      minDeliveryTime: 36,
+      maxDeliveryTime: 36,
+      slaString: "36 MINS",
+      lastMileTravel: 1.5,
+      slugs: {
+        restaurant: "hotel-zk-relief-road-laldarawaja",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address: "Opposite Relief Cinema, Relief Road, Ahmedabad",
+      locality: "Relief Road",
+      parentId: 103505,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "1.5 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "50% OFF",
+        subHeader: "UPTO ₹100",
+        discountTag: "",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "64772",
+        deliveryTime: 36,
+        minDeliveryTime: 36,
+        maxDeliveryTime: 36,
+        lastMileTravel: 1.5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.6",
+      totalRatings: 5000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "398141",
+      name: "Nishat Restaurant Tawa Fry",
+      uuid: "21e6306e-0333-4f9f-bed1-42501da113bd",
+      city: "10",
+      area: "LalDarwaja",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "skrynic2iw9j24wvmnxu",
+      cuisines: ["Mughlai", "North Indian"],
+      tags: [],
+      costForTwo: 40000,
+      costForTwoString: "₹400 FOR TWO",
+      deliveryTime: 36,
+      minDeliveryTime: 36,
+      maxDeliveryTime: 36,
+      slaString: "36 MINS",
+      lastMileTravel: 1.899999976158142,
+      slugs: {
+        restaurant: "nishat-tawa-fry-laldarwaja-laldarwaja",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "1378/11/1 Murgi bazar nr khas bazar Bhadra Ahmedabad gujarat 380001",
+      locality: "Nr Khas Bazar",
+      parentId: 149374,
+      unserviceable: false,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "1.8 kms",
+      hasSurge: false,
+      aggregatedDiscountInfoV3: {
+        header: "50% OFF",
+        subHeader: "",
+        discountTag: "FLAT DEAL",
+        headerTypeV2: 0,
+      },
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "398141",
+        deliveryTime: 36,
+        minDeliveryTime: 36,
+        maxDeliveryTime: 36,
+        lastMileTravel: 1.899999976158142,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.0",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "385114",
+      name: "Gopi Dining Hall",
+      uuid: "265e50e3-9756-40e6-aafb-d9b22960f63c",
+      city: "10",
+      area: "Ellisbridge",
+      totalRatingsString: "50+ ratings",
+      cloudinaryImageId: "qba9sw14h2ublv17jshs",
+      cuisines: ["North Indian", "Chinese"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 34,
+      minDeliveryTime: 34,
+      maxDeliveryTime: 34,
+      slaString: "34 MINS",
+      lastMileTravel: 0.5,
+      slugs: {
+        restaurant: "gopi-dining-hall-vastrapur-vastrapur",
+        city: "ahmedabad",
+      },
+      cityState: "10",
+      address:
+        "Avadhesh Huse, Ground Floor, Off, Ashram Rd, Pritam Nagar, Ellisbridge, Ahmedabad, Gujarat 380006",
+      locality: "Vastrapur",
+      parentId: 89100,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      chain: [],
+      feeDetails: {
+        fees: [
+          {
+            name: "distance",
+            fee: 2800,
+            message: "",
+          },
+          {
+            name: "time",
+            fee: 0,
+            message: "",
+          },
+          {
+            name: "special",
+            fee: 0,
+            message: "",
+          },
+        ],
+        totalFees: 2800,
+        message: "",
+        title: "Delivery Charge",
+        amount: "2800",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "0.5 kms",
+      hasSurge: false,
+      loyaltyDiscoverPresentationInfo: {
+        logoCtx: {
+          text: "BENEFITS",
+          logo: "v1634558776/swiggy_one/OneLogo_3x.png",
+        },
+        freedelMessage: "FREE DELIVERY",
+        exclusiveOfferMessage: "",
+      },
+      sla: {
+        restaurantId: "385114",
+        deliveryTime: 34,
+        minDeliveryTime: 34,
+        maxDeliveryTime: 34,
+        lastMileTravel: 0.5,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.8",
+      totalRatings: 50,
+      new: false,
+    },
+    subtype: "basic",
+  },
+];
+const Body = () => {
   return (
     <React.Fragment>
-      App
-      <h1>Namaste react from functinal component</h1>
-      {props.props}
-      {props.props ? <>hello</> : <>hii</>} //this is how we use js in jsx
-      {OtherWayToWriteComponent()}
-      {<OtherWayToWriteComponent />}
-      {<OtherWayToWriteComponent></OtherWayToWriteComponent>}
+      <div className="search">Search Bar</div>
+      <div className="res-container">
+        {datArray.map((restaurant) => (
+          <ResCard key={restaurant.data.id} ResData={restaurant} />
+        ))}
+      </div>
     </React.Fragment>
   );
 };
-//{}=>if we want to use any js fn,variablr inside jsx we use inside{}
-/// we can use below ways to add other function in react funstion
-///<OtherWayToWriteComponent />
-/// {OtherWayToWriteComponent()}
-// {<OtherWayToWriteComponent />}
-// {<OtherWayToWriteComponent></OtherWayToWriteComponent>}
-///
-///
-const OtherWayToWriteComponent = () => (
-  <div>
-    IF we have no functions to write in our component then we can just use ()
-    and not return keyWordß
-  </div>
-);
 
-root.render(<HeadComponent props={heading} />);
+const AppLayout = () => {
+  return (
+    <React.Fragment>
+      <Header />
+      <Body />
+    </React.Fragment>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<AppLayout></AppLayout>);
