@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import logo from "./Logo/logo.png";
 
 /*
 We are starting with Food order app
