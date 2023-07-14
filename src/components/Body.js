@@ -1,20 +1,35 @@
 import React from "react";
 import ResCard from "./ResCard";
-import datArray from "../utils/mockData";
-import { useState } from "react";
-
-function filterData(searchText, restaurants) {
+// import datArray from "../utils/mockData";
+import { DATA_URL } from "../utils/constants";
+import { useState, useEffect } from "react";
+import { Shimmer } from "./Shimmer";
+import { Link } from "react-router-dom";
+function filterDatafn(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
-    restaurant.data.name.includes(searchText)
+    restaurant.data.name.toUpperCase().includes(searchText.toUpperCase())
   );
 
   return filterData;
 }
 
 const Body = () => {
-  const [data, SetData] = useState(datArray);
   const [searchText, setSearchText] = useState("");
+  const [data, SetData] = useState([]);
+  const [filterData, SetFilterData] = useState([]);
+  const [flag, SetFlag] = useState(false);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const promise = await fetch(DATA_URL);
+    const response = await promise.json();
+    SetData(response?.data?.cards[2]?.data?.data?.cards);
+    SetFilterData(response?.data?.cards[2]?.data?.data?.cards);
+    SetFlag(true);
+  };
   return (
     <React.Fragment>
       <div className="searchAndFilter">
@@ -32,9 +47,9 @@ const Body = () => {
             className="search-btn"
             onClick={() => {
               //need to filter the data
-              const value = filterData(searchText, data);
+              const value = filterDatafn(searchText, data);
               // update the state - restaurants
-              SetData(value);
+              SetFilterData(value);
             }}
           >
             Search
@@ -43,7 +58,9 @@ const Body = () => {
         <button
           className="filter-data"
           onClick={() => {
-            SetData(datArray.filter((item) => item.data.avgRating > 4.1));
+            SetFilterData(
+              filterData.filter((item) => item.data.avgRating > 4.1)
+            );
           }}
         >
           Top Rated Restaurants
@@ -51,17 +68,27 @@ const Body = () => {
         <button
           className="clear-data"
           onClick={() => {
-            SetData(datArray);
+            fetchData();
           }}
         >
           Clear
         </button>
       </div>
-      <div className="res-container">
-        {data.map((restaurant) => (
-          <ResCard key={restaurant.data.id} ResData={restaurant} />
-        ))}
-      </div>
+      {flag ? (
+        <div className="res-container">
+          {filterData.map((restaurant) => (
+            <Link
+              className="custom-link"
+              key={restaurant.data.id}
+              to={"/restaurants/" + restaurant.data.id}
+            >
+              <ResCard ResData={restaurant} />
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <Shimmer />
+      )}
     </React.Fragment>
   );
 };
