@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import { Error } from "./components/Error";
 import { ContactUs } from "./components/ContactUs";
-import { About } from "./components/About";
+import About from "./components/About";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import { Restaurants } from "./components/Restaurants";
 const App = () => {
