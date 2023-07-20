@@ -1,10 +1,11 @@
 import React from "react";
 import ResCard from "./ResCard";
-// import datArray from "../utils/mockData";
+import useOnlineStatus from "../utils/useOnlineStatus";
 import { DATA_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
 import { Shimmer } from "./Shimmer";
 import { Link } from "react-router-dom";
+
 function filterDatafn(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
     restaurant.data.name.toUpperCase().includes(searchText.toUpperCase())
@@ -18,7 +19,7 @@ const Body = () => {
   const [data, SetData] = useState([]);
   const [filterData, SetFilterData] = useState([]);
   const [flag, SetFlag] = useState(false);
-
+  const stauts = useOnlineStatus();
   useEffect(() => {
     fetchData();
   }, []);
@@ -30,6 +31,10 @@ const Body = () => {
     SetFilterData(response?.data?.cards[2]?.data?.data?.cards);
     SetFlag(true);
   };
+
+  if (stauts == false) {
+    return <h1>uh oh!! looks like your connection went away :( </h1>;
+  }
   return (
     <React.Fragment>
       <div className="searchAndFilter">

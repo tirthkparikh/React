@@ -7,7 +7,6 @@ export default class User extends Component {
 
   render() {
     const { name, location, image, contact } = this.props;
-    debugger;
     return (
       <div className="res-card">
         <img src={image} alt="user-image"></img>

@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer.js";
 import { useParams } from "react-router-dom";
-import { MENU_API } from "../utils/constants/";
+import useRestrauntMenu from "../utils/useRestrauntMenu.js";
 import { MENU_IMG } from "../utils/constants.js";
 import Card from "./MenuCards.js";
 
 export const Restaurants = () => {
-  const [menuData, setMenuData] = useState(null);
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    console.log(MENU_API + resId);
-    const data = await fetch(MENU_API + resId);
-    const json = await data.json();
-    setMenuData(json);
-  };
+  // we made a custom hook and fetch the data
+  const menuData = useRestrauntMenu(resId);
 
   if (menuData === null) return <Shimmer />;
 
