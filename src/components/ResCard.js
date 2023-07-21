@@ -13,14 +13,14 @@ const ResCard = (props) => {
   } = ResData?.data;
   return (
     <>
-      <div className="res-card">
-        <img src={CDN_URL + cloudinaryImageId} />
-        <h3 className="Res-name">{name}</h3>
-        <div className="Res-cusine">{cuisines.join(", ")}</div>
-        <div className="Res-rating">{avgRating}</div>
+      <div className="p-4 mx-4 my-2 w-[200px] h-[350px] shadow shadow-zinc-900 border border-solid  border-gray-50 hover:border hover:border-solid hover:border-cyan-100 bg-gray-100  hover:bg-gray-200">
+        <img className="rounded-lg" src={CDN_URL + cloudinaryImageId} />
+        <h3 className="font-bold py-2">{name}</h3>
+        <div>{cuisines.join(", ")}</div>
+        <div className="py-1">{avgRating}</div>
 
-        <div className="Res-time">{slaString}</div>
-        <div className="Res-cost">{costForTwoString}</div>
+        <div>{slaString}</div>
+        <div className="py-1">{costForTwoString}</div>
       </div>
     </>
   );

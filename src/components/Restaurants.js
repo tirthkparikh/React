@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Shimmer } from "./Shimmer.js";
+import ShimmerMenu from "./shimmerMenu.js";
 import { useParams } from "react-router-dom";
 import useRestrauntMenu from "../utils/useRestrauntMenu.js";
 import { MENU_IMG } from "../utils/constants.js";
@@ -11,7 +11,7 @@ export const Restaurants = () => {
   // we made a custom hook and fetch the data
   const menuData = useRestrauntMenu(resId);
 
-  if (menuData === null) return <Shimmer />;
+  if (menuData === null) return <ShimmerMenu />;
 
   const { name, cuisines, costForTwoMessage } =
     menuData?.data?.cards[0]?.card?.card?.info;
@@ -27,7 +27,7 @@ export const Restaurants = () => {
         {cuisines.join(", ")}-{costForTwoMessage}
       </h4>
       <h2>Menu</h2>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {itemCards.map((item) => (
           <Card
             key={item.card.info.id}

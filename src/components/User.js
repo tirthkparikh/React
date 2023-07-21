@@ -8,9 +8,13 @@ export default class User extends Component {
   render() {
     const { name, location, image, contact } = this.props;
     return (
-      <div className="res-card">
-        <img src={image} alt="user-image"></img>
-        <div>Name: {name}</div>
+      <div className="m-4 p-4 w-[220px] h-[350px] shadow shadow-zinc-900 border border-solid  border-gray-50">
+        <img
+          className="rounded-lg w-[200px]"
+          src={image}
+          alt="user-image"
+        ></img>
+        <div className="mt-2">Name: {name}</div>
         <div>Location: {location}</div>
         <div>Contact: {"951XXXXX"}</div>
       </div>

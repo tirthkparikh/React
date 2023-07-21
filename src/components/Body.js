@@ -37,31 +37,31 @@ const Body = () => {
   }
   return (
     <React.Fragment>
-      <div className="searchAndFilter">
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search"
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-          />
-          <button
-            className="search-btn"
-            onClick={() => {
-              //need to filter the data
-              const value = filterDatafn(searchText, data);
-              // update the state - restaurants
-              SetFilterData(value);
-            }}
-          >
-            Search
-          </button>
-        </div>
+      <div className="pl-2 m-2">
+        <input
+          type="text"
+          placeholder="Search"
+          className=" border border-solid border-black rounded-md"
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+        />
+
         <button
-          className="filter-data"
+          className=" ml-5 px-2 bg-green-200 rounded-xl"
+          onClick={() => {
+            //need to filter the data
+            const value = filterDatafn(searchText, data);
+            // update the state - restaurants
+            SetFilterData(value);
+          }}
+        >
+          Search
+        </button>
+
+        <button
+          className="mx-2 px-2 bg-gray-200 rounded-xl"
           onClick={() => {
             SetFilterData(
               filterData.filter((item) => item.data.avgRating > 4.1)
@@ -71,7 +71,7 @@ const Body = () => {
           Top Rated Restaurants
         </button>
         <button
-          className="clear-data"
+          className="mb-5 px-2 bg-gray-200 rounded-xl"
           onClick={() => {
             fetchData();
           }}
@@ -80,7 +80,7 @@ const Body = () => {
         </button>
       </div>
       {flag ? (
-        <div className="res-container">
+        <div className="flex flex-wrap align-middle w-[100%]">
           {filterData.map((restaurant) => (
             <Link
               className="custom-link"
