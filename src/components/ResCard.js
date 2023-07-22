@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { CDN_URL } from "../utils/constants";
+import userLoggedI from "../utils/userContext";
+import { useContext } from "react";
 const ResCard = (props) => {
   const { ResData } = props; // destrucring data
+  const { userLoggedIn } = useContext(userLoggedI);
   const {
     cloudinaryImageId,
     name,
@@ -22,6 +25,7 @@ const ResCard = (props) => {
 
         <div>{slaString}</div>
         <div className="py-1">{costForTwoString}</div>
+        <div className="py-1">{userLoggedIn}</div>
       </div>
     </>
   );
