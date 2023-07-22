@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
@@ -7,16 +7,28 @@ import { Error } from "./components/Error";
 import { ContactUs } from "./components/ContactUs";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import { Restaurants } from "./components/Restaurants";
+import userLoggedI from "./utils/userContext";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const About = lazy(() => import("./components/About"));
 
 const App = () => {
+  const [name, setName] = useState();
+
+  useEffect(() => {
+    const data = {
+      name: "Tirth Parikh",
+    };
+    setName(data.name);
+  }, []);
+
   return (
     <React.Fragment>
-      <Header />
-      <Outlet />
+      <userLoggedI.Provider value={{ userLoggedIn: name, setName }}>
+        <Header />
+        <Outlet />
+      </userLoggedI.Provider>
     </React.Fragment>
   );
 };

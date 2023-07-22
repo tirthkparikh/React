@@ -8,7 +8,7 @@ export default class User extends Component {
   render() {
     const { name, location, image, contact } = this.props;
     return (
-      <div className="m-4 p-4 w-[220px] h-[350px] shadow shadow-zinc-900 border border-solid  border-gray-50">
+      <div className="m-4 p-4 w-[220px] h-[350px] shadow bg-green-100 shadow-zinc-900 border border-solid  border-gray-50">
         <img
           className="rounded-lg w-[200px]"
           src={image}

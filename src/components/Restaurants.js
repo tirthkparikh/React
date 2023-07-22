@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import ShimmerMenu from "./shimmerMenu.js";
+import { Shimmer } from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestrauntMenu from "../utils/useRestrauntMenu.js";
-import { MENU_IMG } from "../utils/constants.js";
-import Card from "./MenuCards.js";
+import ResCategory from "./ResCategory.js";
+import { useContext } from "react";
+import userLoggedI from "../utils/userContext";
 
 export const Restaurants = () => {
+  const [show, Setshow] = useState(null);
   const { resId } = useParams();
-
+  const login = useContext(userLoggedI);
   // we made a custom hook and fetch the data
   const menuData = useRestrauntMenu(resId);
+  console.log(menuData);
 
-  if (menuData === null) return <ShimmerMenu />;
+  if (menuData === null) return <Shimmer />;
 
   const { name, cuisines, costForTwoMessage } =
     menuData?.data?.cards[0]?.card?.card?.info;
@@ -20,25 +23,34 @@ export const Restaurants = () => {
     menuData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
       ?.card;
 
+  const catData =
+    menuData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) => {
+        return (
+          c.card?.card?.["@type"] ==
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        );
+      }
+    );
+
   return (
-    <div class="menu">
-      <h1>{name}</h1>
-      <h4>
+    <div className="text-center bg-blue-50 p-2 max-h-full">
+      <p>Hello {login.userLoggedIn}</p>
+      <p className="font-black m-6 text-slate-400 text-2xl ">{name}</p>
+      <p className="font-bold text-slate-600 text-lg">
         {cuisines.join(", ")}-{costForTwoMessage}
-      </h4>
-      <h2>Menu</h2>
-      <div className="flex flex-wrap">
-        {itemCards.map((item) => (
-          <Card
-            key={item.card.info.id}
-            image={MENU_IMG + item.card.info.imageId}
-            name={item.card.info.name}
-            price={
-              item.card.info.price / 100 || item.card.info.defaultPrice / 100
-            }
-          />
-        ))}
-      </div>
+      </p>
+      <p className="font-bold text-slate-600 text-lg">Menu</p>
+      {catData?.map((item, index) => (
+        <ResCategory
+          data={item?.card?.card}
+          key={item.card.card.title}
+          show={show == index ? true : false}
+          Setshow={() => {
+            Setshow(index);
+          }}
+        />
+      ))}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import User from "./User";
+import userLoggedI from "../utils/userContext";
 
 import React, { Component } from "react";
 
@@ -24,8 +25,18 @@ export default class About extends Component {
       ? this.state.userInfo
       : "null";
     return (
-      <>
-        <h1>About</h1>
+      <div div className="bg-blue-50 h-full min-h-screen">
+        <h1>
+          Hello
+          <userLoggedI.Consumer>
+            {(data) => (
+              <span className="p-1 text-blue-400 font-bold">
+                {data.userLoggedIn}
+              </span>
+            )}
+          </userLoggedI.Consumer>
+        </h1>
+
         <div>This project is part of Namaste react learning</div>
         <User
           name={name}
@@ -33,7 +44,7 @@ export default class About extends Component {
           image={avatar_url}
           contact={email}
         ></User>
-      </>
+      </div>
     );
   }
 }
