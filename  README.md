@@ -107,3 +107,11 @@ we use RouterProvider component from reactrouter and render in inside root compo
 =when we change components and no page request to server
 2)server side routing
 =when we change page and send request to server(old , were we request html files)
+
+#redux
+Install @reduxjs/toolkit and react-redux
+Build our store
+Connect our store to our app
+Slice (cartSlice)
+dispatch(action)
+Selector

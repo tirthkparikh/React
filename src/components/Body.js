@@ -29,16 +29,15 @@ const Body = () => {
   const { setName, userLoggedIn } = useContext(userLoggedI);
   useEffect(() => {
     fetchData();
-    console.log(data, "hi");
   }, []);
 
   const fetchData = async () => {
     const promise = await fetch(DATA_URL);
     const response = await promise.json();
-    console.log(response, "hello");
-    SetData(response?.data?.cards[0]?.data?.data?.cards);
-    SetFilterData(response?.data?.cards[0]?.data?.data?.cards);
-    console.log(data, filterData);
+
+    SetData(response?.data?.cards[2]?.data?.data?.cards);
+    SetFilterData(response?.data?.cards[2]?.data?.data?.cards);
+
     SetFlag(true);
   };
 

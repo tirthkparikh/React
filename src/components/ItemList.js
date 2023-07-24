@@ -1,6 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 import { MENU_IMG } from "../utils/constants";
 export default function ItemList(props) {
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    // Dispatch an action
+    dispatch(addItem(item));
+  };
+  console.log(props.data);
   return (
     <div>
       {props.data?.map((item) => (
@@ -27,7 +36,13 @@ export default function ItemList(props) {
               src={MENU_IMG + item.card.info.imageId}
             ></img>
             <div className="absolute rounded-lg bottom-4 bg-opacity-50 bg-green-300 px-4  ml-5  shadow-lg">
-              <button>Add +</button>
+              <button
+                onClick={() => {
+                  handleAddItem(item);
+                }}
+              >
+                Add +
+              </button>
             </div>
           </div>
         </div>
