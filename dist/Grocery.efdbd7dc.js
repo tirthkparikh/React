@@ -1,0 +1,2 @@
+var e=("undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:"undefined"!=typeof window?window:"undefined"!=typeof global?global:{}).parcelRequire77dd;e.register("7kZKn",function(n,o){Object.defineProperty(n.exports,"__esModule",{value:!0}),n.exports.default=function(){return(0,i.jsx)("div",{children:"Grocery component to do lazy loading/chunking/dynamic bundling"})},(d=e("4Iuzv"))&&d.__esModule;var d,i=e("5aRSq")});
+//# sourceMappingURL=Grocery.efdbd7dc.js.map
