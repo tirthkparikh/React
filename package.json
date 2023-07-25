@@ -5,7 +5,7 @@
   "source":"index.html",
   "scripts": {
     "test": "jest",
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --no-minify",
     "start": "parcel index.html"
   },
   "repository": {
