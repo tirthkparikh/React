@@ -7,7 +7,7 @@ import { useContext } from "react";
 import userLoggedI from "../utils/userContext";
 
 export const Restaurants = () => {
-  const [show, Setshow] = useState(null);
+  const [show, Setshow] = useState(0);
   const { resId } = useParams();
   const login = useContext(userLoggedI);
   // we made a custom hook and fetch the data
@@ -49,6 +49,7 @@ export const Restaurants = () => {
           Setshow={() => {
             Setshow(index);
           }}
+          data-testid="menu"
         />
       ))}
     </div>

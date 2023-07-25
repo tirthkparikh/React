@@ -2,9 +2,8 @@ import React, { useContext, useState } from "react";
 import { CART_URL, LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import { useContext } from "react";
 import userLoggedI from "../utils/userContext";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btn, setBtn] = useState("login");
@@ -16,11 +15,13 @@ const Header = () => {
   return (
     <div className="flex justify-between bg-green-100 shadow-lg mb-0">
       <div>
-        <img className=" p-3 w-40" src={LOGO_URL} />
+        <img data-testid="logo" className=" p-3 w-40" src={LOGO_URL} />
       </div>
       <div className="w-180">
         <ul className="flex justify-center align-middle text-center w-180 p-5 m-4">
-          <li className="px-3">online status: {status ? "🟢" : "🔴"}</li>
+          <li data-testid="status" className="px-3">
+            online status: {status ? "🟢" : "🔴"}
+          </li>
           <li className="px-3">
             <Link to="/">Home</Link>
           </li>
@@ -37,7 +38,10 @@ const Header = () => {
             <Link to="/cart">
               <div class="relative py-2 ">
                 <div class="t-0 bottom-5 absolute left-5">
-                  <p class="flex h-[1px] w-[1px] items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+                  <p
+                    data-testid="cart-qty"
+                    class="flex h-[1px] w-[1px] items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
+                  >
                     {cart.length}
                   </p>
                 </div>

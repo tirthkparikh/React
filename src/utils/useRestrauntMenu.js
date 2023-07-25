@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { MENU_API } from "../utils/constants/";
+import { MENU_API } from "../utils/constants";
 export default function useRestrauntMenu(resId) {
   const [menuData, setMenuData] = useState(null);
 

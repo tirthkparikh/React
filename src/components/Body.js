@@ -48,6 +48,7 @@ const Body = () => {
     <div className="bg-blue-50 mt-0">
       <div className="pl-2 m-2">
         <input
+          data-testid="input"
           type="text"
           placeholder="Search"
           className=" border border-solid border-black rounded-md"
@@ -65,6 +66,7 @@ const Body = () => {
             // update the state - restaurants
             SetFilterData(value);
           }}
+          data-testid="button"
         >
           Search
         </button>
@@ -100,7 +102,10 @@ const Body = () => {
         </div>
       </div>
       {flag ? (
-        <div className="flex flex-wrap align-middle w-[100%]">
+        <div
+          data-testid="restData"
+          className="flex flex-wrap align-middle w-[100%]"
+        >
           {filterData?.map((restaurant) => (
             <Link
               className="custom-link"

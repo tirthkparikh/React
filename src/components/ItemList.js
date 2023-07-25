@@ -37,6 +37,7 @@ export default function ItemList(props) {
             ></img>
             <div className="absolute rounded-lg bottom-4 bg-opacity-50 bg-green-300 px-4  ml-5  shadow-lg">
               <button
+                data-testid="changebtn"
                 onClick={() => {
                   handleAddItem(item);
                 }}
