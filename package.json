@@ -2,6 +2,7 @@
   "name": "react",
   "version": "1.0.0",
   "description": "React by tirth",
+  "default":"index.html"
   "scripts": {
     "test": "jest",
     "build": "parcel build index.html",
